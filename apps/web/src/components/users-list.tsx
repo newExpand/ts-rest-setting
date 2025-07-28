@@ -9,12 +9,12 @@ interface UsersListProps {
 }
 
 export function UsersList({ initialPage = 1, initialLimit = 10 }: UsersListProps) {
-  const { data, error, isLoading, refetch } = apiQueryClient.users.getUsers.useQuery({
-    queryKey: ['users', initialPage, initialLimit],
-    query: { page: initialPage, limit: initialLimit },
-    staleTime: 30 * 1000, // 30초
-    refetchOnWindowFocus: false,
-  });
+  const { data, error, isLoading, refetch } = apiQueryClient.users.getUsers.useQuery(
+    ['users', initialPage, initialLimit],
+    {
+      query: { page: initialPage, limit: initialLimit }
+    }
+  );
 
   if (isLoading) {
     return (

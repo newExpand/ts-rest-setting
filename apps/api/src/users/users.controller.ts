@@ -66,7 +66,7 @@ export class UsersController {
       deleteUser: async ({ params }) => {
         try {
           this.usersService.remove(params.id);
-          return { status: 204 as const, body: undefined };
+          return { status: 204 as const, body: {} };
         } catch {
           return this.notFoundResponse();
         }
