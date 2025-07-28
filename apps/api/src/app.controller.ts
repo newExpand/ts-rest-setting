@@ -1,12 +1,21 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { TsRestHandler } from '@ts-rest/nest';
+import { apiContract } from '@repo/api-contract';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @TsRestHandler(apiContract.health.check)
+  healthCheck() {
+    return {
+      status: 200 as const,
+      body: {
+        status: 'ok' as const,
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime(),
+      },
+    };
   }
 }
